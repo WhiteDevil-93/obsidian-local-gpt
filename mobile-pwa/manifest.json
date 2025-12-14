@@ -1,0 +1,25 @@
+{
+  "name": "Local GPT Mobile PWA",
+  "short_name": "LocalGPT",
+  "description": "A mobile Progressive Web App for Local GPT - AI-powered text processing and note enhancement",
+  "theme_color": "#2196f3",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

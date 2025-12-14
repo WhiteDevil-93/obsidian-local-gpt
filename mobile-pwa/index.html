@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A mobile Progressive Web App for Local GPT - AI-powered text processing and note enhancement">
+  <meta name="theme-color" content="#2196f3">
+  <title>Local GPT Mobile PWA</title>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="/icon-192x192.png">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Local GPT Mobile PWA</h1>
+    </header>
+    
+    <main>
+      <section class="intro">
+        <p>A mobile Progressive Web App for Local GPT - AI-powered text processing and note enhancement</p>
+      </section>
+      
+      <div id="install-prompt" style="display: none;">
+        <button id="install-button">Install App</button>
+      </div>
+      
+      <section class="features">
+        <h2>Features</h2>
+        <ul>
+          <li>Works offline with service worker caching</li>
+          <li>Mobile-optimized interface</li>
+          <li>Installable as a native-like app</li>
+          <li>Fast and responsive</li>
+        </ul>
+      </section>
+      
+      <section class="usage">
+        <h2>Getting Started</h2>
+        <p>This PWA can be installed on your mobile device from the browser menu. Once installed, it will work offline and provide a native app-like experience.</p>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2024 Local GPT. Created with PWA Creator.</p>
+    </footer>
+  </div>
+  
+  <script src="/script.js"></script>
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered:', registration);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+    
+    // Handle PWA install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-prompt').style.display = 'block';
+    });
+    
+    document.getElementById('install-button')?.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+          document.getElementById('install-prompt').style.display = 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
